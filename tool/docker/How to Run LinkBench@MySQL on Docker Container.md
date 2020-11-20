@@ -74,6 +74,7 @@ CREATE TABLE `nodetable` (
 
 mysql> quit
 
+load 전에 config/FBWorkload 에서 18000000001500000000으로 바꿔주기
 # load
 ##  in root/linkbench
 $ ./bin/linkbench -c config/MyConfig.properties -l
