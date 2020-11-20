@@ -15,6 +15,8 @@ $ sudo chown -R 999:docker [log_dir]
 ```
 
 ## 3. Create Container 
+###mapping
+
 ```bash
 $ sudo docker run -it \
 --name [container name] \
@@ -73,6 +75,7 @@ CREATE TABLE `nodetable` (
 mysql> quit
 
 # load
+##  in root/linkbench
 $ ./bin/linkbench -c config/MyConfig.properties -l
 
 ```
