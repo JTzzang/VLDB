@@ -80,6 +80,25 @@ vi YCSB/rocksdb/src/main/java/site/ycsb/db/rocksdb/RocksDBClient.java
 .
 ```
 ## Modify Workload for Data Size
+도커로 할 때에는 컨테이너 실행한 후(밑부분에 있는 sudo docker run -idt ..., sudo docker exec -it [container_name] /bin/bash으로 실행)
+```bash
+cd workloads
+cp workloada ../[script_dir]/
+exit
+```
+local
+```bash
+cd [script_dir]
+cp workloada workload_r
+cp workloada workload_w
+vi workload_r
+아래와 같이 수정
+vi workload_w
+아래와 같이 수정
+```
+이후 컨테이너 다시 실행하여 Load 과정으로 넘어감...
+
+
 ```bash
 $ cd [Local YCSB dir]
 $ mkdir script
@@ -88,7 +107,7 @@ $ cp -r ../workloads/ .
 $ cp workloada workloada_r
 $ cp workloada workload_w
 ```
-아래와 같이 수정
+-----아래와 같이 수정-----
 
 -workload_r
 ```bash
@@ -124,9 +143,9 @@ requestdistribution=uniform
 
 ```bash
 # Load  
-$ ./bin/ycsb load rocksdb -s -P script/workload_r -p rocksdb.dir=[data_dir]
+$ ./bin/ycsb load rocksdb -s -P script/workload_r -p rocksdb.dir=[data_dir] (이 때 data_dir 은 local 이 아닌 컨테이너 내 data_dir(/app/YCSB/data)로 입력
 # Warmup
-$ ./bin/ycsb load rocksdb -s -P script/workload_w -p maxexecutiontime=1800 -p rocksdb.dir=[data_dir]
+$ ./bin/ycsb run rocksdb -s -P script/workload_w -p maxexecutiontime=1800 -p rocksdb.dir=[data_dir]
 # Backup
 $ cp -r [data_dir]/* [backup_dir]/
 # Run   
